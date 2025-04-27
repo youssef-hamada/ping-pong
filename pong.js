@@ -37,6 +37,9 @@ let ball = {
   velocityY: 2,
 };
 
+let player1Score = 0;
+let player2Score = 0;
+
 window.onload = () => {
   board = document.getElementById("board");
   board.width = boardWidth;
@@ -81,6 +84,22 @@ function gameLoop() {
       ball.velocityX = -ball.velocityX;
     }
   }
+
+  if (ball.x < 0) {
+    // player 2 scores
+    player2Score++;
+    resetGame(1);
+  }
+  if (ball.x + ball.width > boardWidth) {
+    // player 1 scores
+    player1Score++;
+    resetGame(-1);
+  }
+
+  context.font = "20px Arial";
+  context.fillStyle = "white";
+  context.fillText("Player 1: " + player1Score, 10, 20);
+  context.fillText("Player 2: " + player2Score, boardWidth - 100, 20);
 }
 
 function movePlayer(e) {
@@ -125,4 +144,11 @@ function detectCollision(a, b) {
     a.y < b.y + b.height &&
     a.y + a.height > b.y
   );
+}
+
+function resetGame(dir) {
+  ball.x = boardWidth / 2;
+  ball.y = boardHeight / 2;
+  ball.velocityX = dir;
+  ball.velocityY = 2;
 }
