@@ -100,6 +100,11 @@ function gameLoop() {
   context.fillStyle = "white";
   context.fillText("Player 1: " + player1Score, 10, 20);
   context.fillText("Player 2: " + player2Score, boardWidth - 100, 20);
+
+  for (let i = 0; i < board.height; i += 20) {
+    context.fillStyle = "white";
+    context.fillRect(boardWidth / 2, i, 5, 10);
+  }
 }
 
 function movePlayer(e) {
